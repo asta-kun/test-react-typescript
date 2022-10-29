@@ -38,7 +38,7 @@ const useStyles = makeStyles({
 });
 
 type Response<T> = [
-  (key: T) => void,
+  (key: T | '*') => void,
   (key: T, node: ReactElement) => ReactElement
 ];
 
@@ -48,17 +48,21 @@ export const useShake = <T extends string>(): Response<T> => {
   const shaking = useRef({} as Record<T, NodeJS.Timeout>);
 
   const shake = useCallback(
-    (key: T): void => {
+    (key: T | '*'): void => {
       if (!key) throw new Error('Key is required.');
 
-      // cancel current if it's shaking
-      if (shaking.current[key]) clearTimeout(shaking.current[key]);
+      const keys = (key === '*' ? Object.keys(shaking.current) : [key]) as T[];
 
-      // start shaking
-      shaking.current[key] = setTimeout(() => {
-        delete shaking.current[key];
-        hydrate();
-      }, DEFAULT_TIMEOUT);
+      keys.forEach((key) => {
+        // cancel current if it's shaking
+        if (shaking.current[key]) clearTimeout(shaking.current[key]);
+
+        // start shaking
+        shaking.current[key] = setTimeout(() => {
+          delete shaking.current[key];
+          hydrate();
+        }, DEFAULT_TIMEOUT);
+      });
 
       // apply
       hydrate();

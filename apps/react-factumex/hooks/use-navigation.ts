@@ -50,8 +50,8 @@ const useNavigation = (context: Page): Response => {
 
   const main = path + '/';
   const login = `${path}/login`;
-  const employees = `${path}/registration`;
-  const upload = `${path}/waiver`;
+  const employees = `${path}/employees`;
+  const upload = `${path}/upload`;
 
   const buildAbsoluteURL = useCallback((relativePath: URL): string => {
     return `${window.location.origin}${relativePath}`;

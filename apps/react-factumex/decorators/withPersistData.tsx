@@ -7,17 +7,22 @@ import { slices as persistedSlices } from '../config/redux/middlewares/persist-s
 import { useIsMounted } from '@factumex/core/hooks';
 import useLoader from '../hooks/use-loader';
 import ErrorComponent from '../containers/Error';
+import { atom, useAtom } from 'jotai';
+
+const alreadyRestored = atom(false);
 
 // restore indexedDB data
 function withPersistedData<T>(Component: ComponentType<T>): ComponentType<T> {
   return function PersistedDataDecorator(props) {
     const isMounted = useIsMounted();
-    const [loading, setLoading] = useState(true);
+    const [restored, setRestored] = useAtom(alreadyRestored);
+    const [loading, setLoading] = useState(!restored);
     const [error, setError] = useState(false);
     useLoader(loading);
     const dispatch = useDispatch();
 
     useIsomorphicLayoutEffect(function restoreData() {
+      if (restored) return;
       Promise.all(
         persistedSlices.map(async (item) => {
           const state = await get(item.key);
@@ -32,6 +37,7 @@ function withPersistedData<T>(Component: ComponentType<T>): ComponentType<T> {
         })
         .finally(() => {
           if (isMounted()) setLoading(false);
+          setRestored(true);
         });
     }, []);
 

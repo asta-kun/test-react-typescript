@@ -26,7 +26,6 @@ const StandardButton = forwardRef(function StandardButton(
 
   return (
     <Button
-      fullWidth
       disableElevation
       variant="contained"
       className={clsx(classes.button, className)}
