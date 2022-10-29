@@ -4,13 +4,14 @@ import { GetServerSideProps } from 'next';
 import { ComponentType } from 'react';
 import withDefaultDecorators from '../decorators/withDefault';
 import { withDynamicPortals } from '@factumex/core/decorators';
+import withProtected from '../decorators/withProtected';
 
-const SignInPage = dynamic(
+const EmployeesPage = dynamic(
   () => import('../modules/employees/index')
 ) as ComponentType<unknown>;
 
 export default withDynamicPortals(
-  withDefaultPageDecorator(withDefaultDecorators(SignInPage))
+  withDefaultPageDecorator(withDefaultDecorators(withProtected(EmployeesPage)))
 );
 
 // expose getServerSideProps (query)
