@@ -1,2 +1,6 @@
-export enum APIResourceType {}
-export enum APIResource {}
+export enum APIResourceType {
+  employees = 'employees',
+}
+export enum APIResource {
+  list,
+}

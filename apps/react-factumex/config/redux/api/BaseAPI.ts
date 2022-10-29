@@ -39,6 +39,6 @@ export const dynamicBaseQuery: (
 
 export const api = createApi({
   baseQuery: dynamicBaseQuery(true),
-  tagTypes: [],
+  tagTypes: [APIResourceType.employees],
   endpoints: () => ({}),
 });

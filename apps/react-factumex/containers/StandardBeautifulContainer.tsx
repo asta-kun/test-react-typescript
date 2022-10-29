@@ -6,11 +6,11 @@ import classes from './StandardBeautifulContainer.module.sass';
 import logo from '../public/images/logo.svg';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import useNavigation, { Page } from '../hooks/use-navigation';
+import { defaults } from 'lodash';
 
 interface Props {
   children: ReactNode;
   page: Page;
-  showBackButton?: boolean;
   display?: Partial<{
     logo: boolean;
     backButton: boolean;
@@ -20,20 +20,20 @@ interface Props {
 
 const StandardBeautifulContainer = ({
   children,
-  display,
+  display: rawDisplay,
   page,
-  showBackButton = true,
   imageBoxProps = {},
 }: Props): ReactElement => {
+  const display = defaults(rawDisplay, { logo: true, backButton: true });
   const { withEvents: navigation, disabled: disabledNavigation } =
     useNavigation(page);
 
   return (
     <Box className={classes.root}>
       <Box className={classes.header}>
-        {showBackButton && (
+        <Box>
           <Box>
-            <Box>
+            {display.backButton && (
               <Button
                 variant="contained"
                 color="secondary"
@@ -44,18 +44,20 @@ const StandardBeautifulContainer = ({
               >
                 &nbsp;&nbsp;Back
               </Button>
-            </Box>
+            )}
+          </Box>
+        </Box>
+        {display.logo && (
+          <Box {...imageBoxProps}>
+            <Image
+              {...logo}
+              width={200}
+              height={40}
+              alt="logo"
+              priority={false}
+            />
           </Box>
         )}
-        <Box {...imageBoxProps}>
-          <Image
-            {...logo}
-            width={200}
-            height={40}
-            alt="logo"
-            priority={false}
-          />
-        </Box>
       </Box>
       <Box className={classes.mainContainer}>
         <Box>{children}</Box>
