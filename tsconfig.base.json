@@ -1,0 +1,28 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "types": ["node"],
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": ["es2017", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@factumex/core/config": ["libs/core/src/lib/config/index.ts"],
+      "@factumex/core/hooks": ["libs/core/src/lib/hooks/index.tsx"],
+      "@factumex/core/utils": ["libs/core/src/lib/utils/index.ts"],
+      "@factumex/core/icons": ["libs/core/src/lib/icons/index.tsx"],
+      "@factumex/core/decorators": ["libs/core/src/lib/decorators/index.tsx"],
+      "@factumex/core/components": ["libs/core/src/lib/components/index.tsx"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}

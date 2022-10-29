@@ -1,0 +1,8 @@
+{
+  "version": 2,
+  "projects": {
+    "core": "libs/core",
+    "react-factumex": "apps/react-factumex",
+    "react-factumex-e2e": "apps/react-factumex-e2e"
+  }
+}

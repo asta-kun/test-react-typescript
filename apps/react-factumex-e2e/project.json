@@ -1,0 +1,30 @@
+{
+  "root": "apps/react-factumex-e2e",
+  "sourceRoot": "apps/react-factumex-e2e/src",
+  "projectType": "application",
+  "targets": {
+    "e2e": {
+      "executor": "@nrwl/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/react-factumex-e2e/cypress.json",
+        "devServerTarget": "react-factumex:serve:development"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "react-factumex:serve:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "apps/react-factumex-e2e/**/*.{js,ts}"
+        ]
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["react-factumex"]
+}

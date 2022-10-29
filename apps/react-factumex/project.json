@@ -1,0 +1,62 @@
+{
+  "root": "apps/react-factumex",
+  "sourceRoot": "apps/react-factumex",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/next:build",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "root": "apps/react-factumex",
+        "outputPath": "dist/apps/react-factumex"
+      },
+      "configurations": {
+        "development": {},
+        "production": {}
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/next:server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "react-factumex:build",
+        "dev": true
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "react-factumex:build:development",
+          "dev": true
+        },
+        "production": {
+          "buildTarget": "react-factumex:build:production",
+          "dev": false
+        }
+      }
+    },
+    "export": {
+      "executor": "@nrwl/next:export",
+      "options": {
+        "buildTarget": "react-factumex:build:production"
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/react-factumex"],
+      "options": {
+        "jestConfig": "apps/react-factumex/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "apps/react-factumex/**/*.{ts,tsx,js,jsx}"
+        ]
+      }
+    }
+  },
+  "tags": []
+}
