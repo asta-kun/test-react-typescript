@@ -24,7 +24,6 @@ export interface PageMap {
   main: URL;
   login: URL;
   employees: URL;
-  upload: URL;
 }
 
 interface Response {
@@ -51,7 +50,6 @@ const useNavigation = (context: Page): Response => {
   const main = path + '/';
   const login = `${path}/login`;
   const employees = `${path}/employees`;
-  const upload = `${path}/upload`;
 
   const buildAbsoluteURL = useCallback((relativePath: URL): string => {
     return `${window.location.origin}${relativePath}`;
@@ -66,7 +64,6 @@ const useNavigation = (context: Page): Response => {
             main,
             login,
             employees,
-            upload,
             back: main,
           };
       }
@@ -75,7 +72,7 @@ const useNavigation = (context: Page): Response => {
     return obj;
 
     // default
-  }, [main, login, employees, upload]);
+  }, [main, login, employees]);
 
   const withEvents: Record<string, (e?: MouseEvent<HTMLElement>) => void> =
     useMemo(() => {

@@ -1,13 +1,13 @@
 import dynamic from 'next/dynamic';
-import withDefaultPageDecorator from '../decorators/withDefaultPage';
+import withDefaultPageDecorator from '../../../decorators/withDefaultPage';
 import { GetServerSideProps } from 'next';
 import { ComponentType } from 'react';
-import withDefaultDecorators from '../decorators/withDefault';
+import withDefaultDecorators from '../../../decorators/withDefault';
 import { withDynamicPortals } from '@factumex/core/decorators';
-import withProtected from '../decorators/withProtected';
+import withProtected from '../../../decorators/withProtected';
 
 const EmployeesPage = dynamic(
-  () => import('../modules/employees/index')
+  () => import('../../../modules/employees/upload/index')
 ) as ComponentType<unknown>;
 
 export default withDynamicPortals(

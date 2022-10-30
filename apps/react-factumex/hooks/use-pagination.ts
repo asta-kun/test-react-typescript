@@ -13,6 +13,7 @@ interface Response<T> {
   previous: () => void;
   pages: number;
   setPage: (page: number) => void;
+  page: number;
 }
 
 const usePagination = <T>({
@@ -35,11 +36,17 @@ const usePagination = <T>({
   }, [items, page, pageSize]);
 
   const next = useCallback(() => {
-    setPage((prev) => prev + 1);
+    setPage((prev) => {
+      const nextPage = prev + 1;
+      return nextPage > pages ? 1 : nextPage;
+    });
   }, []);
 
   const previous = useCallback(() => {
-    setPage((prev) => prev - 1);
+    setPage((prev) => {
+      const previousPage = prev - 1;
+      return previousPage < 1 ? pages : previousPage;
+    });
   }, []);
 
   // Reset page to defaultPage when items change
@@ -49,7 +56,7 @@ const usePagination = <T>({
     }
   }, [items.length]);
 
-  return { results, next, previous, pages, setPage };
+  return { results, next, previous, pages, setPage, page };
 };
 
 export default usePagination;

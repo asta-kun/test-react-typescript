@@ -14,6 +14,7 @@ import React, {
 import PhotoLibraryIcon from '@mui/icons-material/PhotoLibrary';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 import { TableActions } from '../../../components/common/table/types';
+import { useRouter } from 'next/router';
 
 const EmployeeTable = forwardRef<TableActions>(function Table(
   props,
@@ -66,21 +67,28 @@ const EmployeeTable = forwardRef<TableActions>(function Table(
 
 export default EmployeeTable;
 
-function getActions(data: IEmployee): ReactElement {
-  return (
-    <Box>
-      <Grid container>
-        <Grid item>
-          <IconButton>
-            <FileUploadIcon />
-          </IconButton>
+function getActions(data: IEmployee): React.FC {
+  return function Actions() {
+    const router = useRouter();
+    const goToUploadSection = (): void => {
+      router.push(`/employees/${data.id}/upload`);
+    };
+
+    return (
+      <Box>
+        <Grid container>
+          <Grid item>
+            <IconButton onClick={goToUploadSection}>
+              <FileUploadIcon />
+            </IconButton>
+          </Grid>
+          <Grid item>
+            <IconButton>
+              <PhotoLibraryIcon />
+            </IconButton>
+          </Grid>
         </Grid>
-        <Grid item>
-          <IconButton>
-            <PhotoLibraryIcon />
-          </IconButton>
-        </Grid>
-      </Grid>
-    </Box>
-  );
+      </Box>
+    );
+  };
 }

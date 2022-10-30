@@ -9,9 +9,9 @@ import {
   Pagination,
   Box,
 } from '@mui/material';
-import usePagination from 'apps/react-factumex/hooks/use-pagination';
+import usePagination from '../../../hooks/use-pagination';
 import { startCase, toString } from 'lodash';
-import React, { Fragment, ReactElement, ReactNode } from 'react';
+import React, { Fragment, ReactElement } from 'react';
 import EmptyList from '../EmptyList';
 import { defaultTransformation } from './transformations';
 import { TableProps } from './types.d';
@@ -57,9 +57,12 @@ const GenericTable = <T,>({
                     );
                   })}
                   {Object.keys(extraFields).map((column) => {
+                    const Actions = (
+                      extraFields[column] as (data: T) => React.FC
+                    )(item);
                     return (
                       <TableCell key={column}>
-                        {(extraFields[column] as (data: T) => ReactNode)(item)}
+                        <Actions />
                       </TableCell>
                     );
                   })}
