@@ -19,7 +19,7 @@ const useModal = <T,>({
   props,
   ModalProps = {},
 }: Props<T>): Response => {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
 
   const handleOnClose = useCallbackRef(() => {
     setOpen(false);
