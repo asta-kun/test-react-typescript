@@ -22,3 +22,9 @@ $ yarn nx serve
 ```
 $ yarn nx build
 ```
+
+### Deploy to production
+
+```
+$ AWS_PROFILE=personal yarn nx deploy  --stage=prod
+```
