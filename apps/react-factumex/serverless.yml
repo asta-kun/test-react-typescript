@@ -1,0 +1,11 @@
+# serverless.yml
+FactumexApp:
+  component: '@sls-next/serverless-component@3.5.3-alpha.4'
+  inputs:
+    removeOldLambdaVersions: true
+    enableS3Acceleration: false
+    build:
+      cwd: '../../'
+      cmd: nx
+      args: ['build', 'react-factumex']
+    nextConfigDir: '../../dist/apps/react-factumex'

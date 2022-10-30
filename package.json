@@ -24,6 +24,8 @@
     "@nrwl/next": "14.0.1",
     "@reduxjs/toolkit": "^1.8.1",
     "better-lock": "^2.0.3",
+    "@serverless/core": "1.1.2",
+    "@serverless/template": "1.1.4",
     "clsx": "^1.1.1",
     "core-js": "^3.6.5",
     "country-state-city": "3.0.1",

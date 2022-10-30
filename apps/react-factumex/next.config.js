@@ -7,6 +7,7 @@ const path = require('path');
  **/
 const nextConfig = {
   reactStrictMode: false,
+  target: 'serverless',
   compiler: {
     // ssr and displayName are configured by default
     styledComponents: true,

@@ -34,6 +34,28 @@
         }
       }
     },
+
+    "deploy": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "cd apps/react-factumex && serverless"
+          }
+        ]
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "react-factumex:build:development",
+          "dev": true
+        },
+        "production": {
+          "buildTarget": "react-factumex:build:production",
+          "dev": false
+        }
+      }
+    },
+
     "export": {
       "executor": "@nrwl/next:export",
       "options": {
@@ -52,9 +74,7 @@
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": [
-          "apps/react-factumex/**/*.{ts,tsx,js,jsx}"
-        ]
+        "lintFilePatterns": ["apps/react-factumex/**/*.{ts,tsx,js,jsx}"]
       }
     }
   },
