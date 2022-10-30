@@ -240,8 +240,6 @@ export const useDynamicPortals = <T,>(
 
   const deps = useDynamicChanges(() => [props, options], [props, options]);
   useIsomorphicLayoutEffect(function updatingComponent() {
-    console.log('updating props', mounted, portalId.current);
-
     if (!mounted || !portalId.current) return; // do nothing if the portal is not displayed
     actions.update(portalId.current, props, options);
   }, deps);

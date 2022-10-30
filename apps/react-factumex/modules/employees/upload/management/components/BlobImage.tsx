@@ -8,7 +8,6 @@ interface Props {
 }
 
 const BlobImage = withoutSSR(({ blob, height = 225 }: Props): ReactElement => {
-  console.log('blob:', blob);
   const URL = useMemo(() => {
     return !(blob instanceof Blob) ? null : window.URL.createObjectURL(blob);
   }, [blob]);

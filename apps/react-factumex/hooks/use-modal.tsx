@@ -22,16 +22,14 @@ const useModal = <T,>({
   const [open, setOpen] = useState(false);
 
   const handleOnClose = useCallbackRef(() => {
-    console.log('open:', false);
     setOpen(false);
   });
 
   const handleOpen = useCallbackRef(() => {
     setOpen(true);
-    console.log('open:', true);
   });
 
-  const {} = useDynamicPortals(true, CustomModal, {
+  useDynamicPortals(true, CustomModal, {
     open,
     fullScreen: false,
     maxWidth: 'sm',
