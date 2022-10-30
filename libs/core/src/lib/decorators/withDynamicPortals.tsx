@@ -219,7 +219,7 @@ interface DynamicPortalsDecoratorProps {
 export const useDynamicPortals = <T,>(
   defaultMounted: boolean,
   Component: ComponentType<T>,
-  props: ComponentProps<ComponentType<T>>,
+  props?: ComponentProps<ComponentType<T>>,
   options?: {
     hidden?: boolean;
     parent?: HTMLElement;

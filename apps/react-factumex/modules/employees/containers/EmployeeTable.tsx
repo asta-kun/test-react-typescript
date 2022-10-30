@@ -1,6 +1,6 @@
 import { Box, CircularProgress, Grid, IconButton } from '@mui/material';
 import GenericTable from '../../..//components/common/table/Table';
-import { useGetEventsQuery } from '../../../config/redux/api/services/employees/service';
+import { useGetEmployeesQuery } from '../../../config/redux/api/services/employees/service';
 import { IEmployee } from '../../../config/redux/api/services/employees/types';
 import { DateTime } from 'luxon';
 import React, {
@@ -19,7 +19,7 @@ const EmployeeTable = forwardRef<TableActions>(function Table(
   props,
   ref
 ): ReactElement {
-  const { data, isFetching } = useGetEventsQuery({});
+  const { data, isFetching } = useGetEmployeesQuery({});
   const [filter, setFilter] = useState('');
   const { 1: startTransition } = useTransition();
 

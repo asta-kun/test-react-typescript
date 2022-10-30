@@ -9,7 +9,7 @@ import { APIResource, APIResourceType } from '../../types.d';
 
 export const employeesAPI = api.injectEndpoints({
   endpoints: (build) => ({
-    getEvents: build.query<
+    getEmployees: build.query<
       Readonly<IIndexedAPIEntity<IEmployee, number>>,
       unknown
     >({
@@ -36,7 +36,28 @@ export const employeesAPI = api.injectEndpoints({
       ],
       keepUnusedDataFor: 60 * 15, // minutes
     }),
+
+    addEmployee: build.mutation<
+      Readonly<unknown>,
+      { name: string; last_name: string; birthday: string }
+    >({
+      query: (args) => {
+        const { name, last_name, birthday } = args;
+        return {
+          url: `/v1/examen/employees/:hector_castillo`,
+          method: 'POST',
+          body: { name, last_name, birthday },
+        };
+      },
+      invalidatesTags: [
+        { type: APIResourceType.employees, id: APIResource.list },
+      ],
+    }),
   }),
 });
 
-export const { useGetEventsQuery, useLazyGetEventsQuery } = employeesAPI;
+export const {
+  useGetEmployeesQuery,
+  useLazyGetEmployeesQuery,
+  useAddEmployeeMutation,
+} = employeesAPI;
