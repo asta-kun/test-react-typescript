@@ -45,13 +45,16 @@ type Response<T> = [
 export const useShake = <T extends string>(): Response<T> => {
   const classes = useStyles();
   const hydrate = useHydrate();
+  const registered = useRef({} as Record<T, true>);
   const shaking = useRef({} as Record<T, NodeJS.Timeout>);
 
   const shake = useCallback(
     (key: T | '*'): void => {
       if (!key) throw new Error('Key is required.');
 
-      const keys = (key === '*' ? Object.keys(shaking.current) : [key]) as T[];
+      const keys = (
+        key === '*' ? Object.keys(registered.current) : [key]
+      ) as T[];
 
       keys.forEach((key) => {
         // cancel current if it's shaking
@@ -77,6 +80,7 @@ export const useShake = <T extends string>(): Response<T> => {
 
       // no supported node
       if (!currentProps) return node;
+      registered.current[key] = true;
 
       // inject shake class
       return cloneElement(node as ReactElement, {
