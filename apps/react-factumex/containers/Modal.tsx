@@ -1,10 +1,9 @@
 import React, { CSSProperties, ReactElement, ReactNode } from 'react';
 import { makeStyles } from '@mui/styles';
 import clsx from 'clsx';
-import { isEmpty, isFunction } from 'lodash';
+import { isEmpty } from 'lodash';
 import { PassiveUnmount } from '@factumex/core/components';
-import { Box, Dialog, DialogTitle, IconButton } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
+import { Box, Dialog, DialogTitle } from '@mui/material';
 import { blue } from '@mui/material/colors';
 
 const useStyles = makeStyles(() => ({
@@ -115,13 +114,6 @@ const Modal = ({
               <DialogTitle className={classes.title}>
                 <span style={titleStyles}>{title}</span>
               </DialogTitle>
-              <Box className={classes.closeIcon}>
-                {showCloseButton && isFunction(onClose) && (
-                  <IconButton onClick={onClose} style={{ color: titleColor }}>
-                    <CloseIcon />
-                  </IconButton>
-                )}
-              </Box>
             </Box>
           )}
           <Box className={classes.content}>{children}</Box>

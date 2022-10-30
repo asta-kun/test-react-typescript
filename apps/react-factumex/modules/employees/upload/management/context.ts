@@ -4,7 +4,7 @@ import { IBlobEntity } from './types.d';
 export type IUploadContext = {
   addFiles: (files: File[]) => string[];
   removeFiles: (ids: string[]) => void;
-  confirm: () => Promise<void>;
+  confirm: () => void;
   files: Readonly<Record<string, IBlobEntity>>;
 };
 
@@ -14,5 +14,7 @@ export const UploadContext = createContext<IUploadContext>({
   removeFiles: () => {
     // do nothing
   },
-  confirm: () => Promise.resolve(),
+  confirm: () => {
+    // do nothing
+  },
 });

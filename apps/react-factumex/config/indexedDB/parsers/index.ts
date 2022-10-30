@@ -30,7 +30,9 @@ export const parserDumpDeeply = (input: any): any => {
   if (
     ['number', 'undefined', 'boolean', 'bigint', 'string'].includes(
       typeof input
-    )
+    ) ||
+    input instanceof Blob ||
+    input instanceof File
   )
     return input;
 
@@ -67,7 +69,11 @@ export const parserLoadDeeply = (input: any): any => {
   if (typeof input === 'string') return objectLoadParser(input);
 
   // standard values
-  if (['number', 'undefined', 'boolean', 'bigint'].includes(typeof input))
+  if (
+    ['number', 'undefined', 'boolean', 'bigint'].includes(typeof input) ||
+    input instanceof Blob ||
+    input instanceof File
+  )
     return input;
 
   // array support

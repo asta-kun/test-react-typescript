@@ -57,12 +57,13 @@ const GenericTable = <T,>({
                     );
                   })}
                   {Object.keys(extraFields).map((column) => {
-                    const Actions = (
-                      extraFields[column] as (data: T) => React.FC
-                    )(item);
+                    const Actions = extraFields[column] as unknown as React.FC<{
+                      data: T;
+                    }>;
+
                     return (
                       <TableCell key={column}>
-                        <Actions />
+                        <Actions data={item} />
                       </TableCell>
                     );
                   })}

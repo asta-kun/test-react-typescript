@@ -13,11 +13,13 @@ import { isProduction } from '@factumex/core/config';
 import authSlice from './store/auth/slice';
 import i18nSlice from './store/i18n/slice';
 import persistStoreMiddleware from './middlewares/persist-store';
+import filesSlice from './store/files/slice';
 
 export const store = configureStore({
   reducer: {
     [api.reducerPath]: api.reducer,
     auth: authSlice.reducer,
+    files: filesSlice.reducer,
     i18n: i18nSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>

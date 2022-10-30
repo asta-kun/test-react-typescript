@@ -22,22 +22,24 @@ const useModal = <T,>({
   const [open, setOpen] = useState(false);
 
   const handleOnClose = useCallbackRef(() => {
+    console.log('open:', false);
     setOpen(false);
   });
 
   const handleOpen = useCallbackRef(() => {
     setOpen(true);
+    console.log('open:', true);
   });
 
-  useDynamicPortals(true, CustomModal, {
+  const {} = useDynamicPortals(true, CustomModal, {
     open,
-    onClose: handleOnClose,
     fullScreen: false,
     maxWidth: 'sm',
     titleBackground: '#1f88e5',
     titleColor: '#fff',
     padding: '0',
     ...ModalProps,
+    onClose: handleOnClose,
     CustomComponent: Component,
     CustomComponentProps: {
       onClose: handleOnClose,

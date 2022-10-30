@@ -2,9 +2,10 @@ import { RootState } from '../index';
 import { Middleware } from '@reduxjs/toolkit';
 import { setMany } from '../../indexedDB/basic-store';
 import authSlice from '../store/auth/slice';
+import filesSlice from '../store/files/slice';
 
 // slices that should be persisted
-export const slices = [authSlice].map((slice) => ({
+export const slices = [authSlice, filesSlice].map((slice) => ({
   slice,
   name: slice.name,
   key: `redux-state-${slice.name}`,

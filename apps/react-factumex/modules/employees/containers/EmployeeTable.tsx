@@ -15,6 +15,8 @@ import PhotoLibraryIcon from '@mui/icons-material/PhotoLibrary';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 import { TableActions } from '../../../components/common/table/types';
 import { useRouter } from 'next/router';
+import useModal from '../../../hooks/use-modal';
+import Gallery from '../components/Gallery';
 
 const EmployeeTable = forwardRef<TableActions>(function Table(
   props,
@@ -55,7 +57,7 @@ const EmployeeTable = forwardRef<TableActions>(function Table(
     <GenericTable
       items={items}
       primaryKey="id"
-      extraFields={{ actions: getActions }}
+      extraFields={{ actions: GetActions }}
       displayColumns={['id', 'name', 'last_name', 'birthday']}
       renderRowField={{
         birthday: (value: number) =>
@@ -67,28 +69,37 @@ const EmployeeTable = forwardRef<TableActions>(function Table(
 
 export default EmployeeTable;
 
-function getActions(data: IEmployee): React.FC {
-  return function Actions() {
-    const router = useRouter();
-    const goToUploadSection = (): void => {
-      router.push(`/employees/${data.id}/upload`);
-    };
-
-    return (
-      <Box>
-        <Grid container>
-          <Grid item>
-            <IconButton onClick={goToUploadSection}>
-              <FileUploadIcon />
-            </IconButton>
-          </Grid>
-          <Grid item>
-            <IconButton>
-              <PhotoLibraryIcon />
-            </IconButton>
-          </Grid>
-        </Grid>
-      </Box>
-    );
+interface ActionsProps {
+  data: IEmployee;
+}
+function GetActions({ data }: ActionsProps): ReactElement {
+  const router = useRouter();
+  const goToUploadSection = (): void => {
+    router.push(`/employees/${data.id}/upload`);
   };
+
+  const { open } = useModal({
+    Component: Gallery,
+    props: {
+      employeeId: data.id,
+    },
+    ModalProps: { title: 'Gallery for employee #' + data.id, maxWidth: 'md' },
+  });
+
+  return (
+    <Box>
+      <Grid container>
+        <Grid item>
+          <IconButton onClick={goToUploadSection}>
+            <FileUploadIcon />
+          </IconButton>
+        </Grid>
+        <Grid item>
+          <IconButton onClick={open}>
+            <PhotoLibraryIcon />
+          </IconButton>
+        </Grid>
+      </Grid>
+    </Box>
+  );
 }

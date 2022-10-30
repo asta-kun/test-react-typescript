@@ -4,9 +4,21 @@ import UploadPanel from './containers/UploadPlanel';
 import { UploadContext } from './context';
 import { IBlobEntity } from './types.d';
 import { v4 as uuid } from 'uuid';
+import { useDispatch } from 'react-redux';
+import { addFiles as addFilesAction } from '../../../../config/redux/store/files/slice';
+import { useRouter } from 'next/router';
+import useNavigation, { Page } from '../../../../hooks/use-navigation';
+import toast from 'react-hot-toast';
 
 const UploadContextProvider = (): ReactElement => {
+  const {
+    withEvents: { employees },
+  } = useNavigation(Page.main);
   const [files, setFiles] = useState<Record<string, IBlobEntity>>({});
+  const dispatch = useDispatch();
+  const {
+    query: { employeeId },
+  } = useRouter();
 
   const addFiles = useCallbackRef((newFiles: File[]) => {
     const nextFiles = newFiles.reduce(
@@ -28,9 +40,26 @@ const UploadContextProvider = (): ReactElement => {
     setFiles(nextFiles);
   });
 
-  const confirm = useCallbackRef(async () => {
-    alert('confirm');
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+  const confirm = useCallbackRef((): void => {
+    // send to store (a middleware will save them on indexedDB)
+
+    const blobs = Object.values(files).map((file) => ({
+      ...file,
+      blob: new Blob([file.blob], { type: file.blob.type }),
+    }));
+
+    dispatch(
+      addFilesAction({
+        employeeId: employeeId as string,
+        blobs,
+      })
+    );
+
+    // clear files
+    setFiles({});
+
+    toast.success('Files uploaded successfully');
+    employees();
   });
 
   return (
